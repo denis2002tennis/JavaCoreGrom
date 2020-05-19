@@ -1,6 +1,4 @@
-package lesson16;
-
-import java.util.Arrays;
+package lesson16_17;
 
 public class Solution {
     public static void main(String[] args) {

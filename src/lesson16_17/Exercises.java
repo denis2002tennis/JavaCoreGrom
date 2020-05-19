@@ -1,6 +1,5 @@
-package lesson16;
+package lesson16_17;
 
-import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 
 public class Exercises {

@@ -1,27 +1,36 @@
 package lesson19.HomeWork;
 
 public class Controller {
-    public static void put(Storage storage,File file) throws Exception{
+    public static Storage put(Storage storage,File file) throws Exception{
         if(formatChecker(file.getFormat(),storage.getFormatsSupported())==false)
             throw new Exception("this format is not supported");
+
         if(sizeCheker(storage,file.getSize())==false)
             throw new Exception("not enough space in storage");
+
         if(sameFileCheker(storage,file.getId())==false)
             throw new Exception("File with same id already defined in scope");
+
         if(emptyChecker(storage)==true)
             throw new Exception("No empty space if array");
 
+        storage.setFiles(addFile(storage.getFiles(),file));
+        return storage;
 
 
-//           for(File filer: storage.getFiles()){
-//             //  if(filer.getId()==file.getId())
-//                   //checker=true;
-//           }
 
         }
 
-    public static void delete(Storage storage,File file){
-
+    public static Storage delete(Storage storage,File file) throws Exception{
+        File[] files=storage.getFiles();
+        if(sameFileCheker(storage,file.getId())==true){
+        for(int i=0; i<storage.getFiles().length;i++){
+            if(files[i].getId()==file.getId())
+                files[i]=file;
+        }
+        return storage;
+        }
+        throw new Exception("No such file in the scope");
     }
 
     public static void transferAll(Storage storageFrom, Storage storageTo) throws Exception{

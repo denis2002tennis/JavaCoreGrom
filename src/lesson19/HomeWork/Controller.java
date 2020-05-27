@@ -11,21 +11,22 @@ public class Controller {
         if (sameFileCheker(storage, file.getId()) == false)
             throw new Exception("File with same id already defined in scope");
 
-        if (emptyChecker(storage) == true)
-            throw new Exception("No empty space if array");
+        if (emptyChecker(storage) == false)
+            throw new Exception("No empty space in array");
 
         storage.setFiles(addFile(storage.getFiles(), file));
-        //return storage;
+      //  return storage;
 
 
     }
 
     public static void delete(Storage storage, File file) throws Exception {
         File[] files = storage.getFiles();
-        if (sameFileCheker(storage, file.getId()) == true) {
+        if (sameFileCheker(storage, file.getId()) == false) {
             for (int i = 0; i < storage.getFiles().length; i++) {
+                if(files[i]!=null)
                 if (files[i].getId() == file.getId())
-                    files[i] = file;
+                    files[i] = null;
             }
             storage.setFiles(files);
         }
@@ -44,9 +45,10 @@ public class Controller {
       if(sameFileCheker(storageFrom,id)==false){
           File file=null;
           for(int i=0;i<storageFrom.getFiles().length;i++){
+              if(storageFrom.getFiles()[i]!=null)
               if(storageFrom.getFiles()[i].getId()==id) {
                   file = storageFrom.getFiles()[i];
-                  return;
+                  break;
               }
           }
           try {
@@ -57,20 +59,24 @@ public class Controller {
           }
 
       }
+      else
+          throw new Exception("No file with id "+id+ " found in the scope");
 
     }
 
     public static File[] addFile(File[] files, File file) {
         for (int i = 0; i < files.length; i++) {
-            if (files[i].equals(null))
+            if (files[i]==(null)){
                 files[i] = file;
+                return files;
+            }
         }
         return files;
     }
 
     public static boolean emptyChecker(Storage storage) {
         for (File file : storage.getFiles()) {
-            if (file.equals(null))
+            if (file==null)
                 return true;
         }
         return false;
@@ -78,6 +84,7 @@ public class Controller {
 
     public static boolean sameFileCheker(Storage storage, long id) {
         for (File file : storage.getFiles()) {
+            if(file!=null)
             if (file.getId() == id)
                 return false;
         }
@@ -87,6 +94,7 @@ public class Controller {
     public static boolean sizeCheker(Storage storage, long size) {
         long result = size;
         for (File file : storage.getFiles()) {
+            if(file!=null)
             result += file.getSize();
         }
         if (result > storage.getStorageSize())

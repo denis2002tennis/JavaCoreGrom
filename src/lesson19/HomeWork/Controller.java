@@ -35,7 +35,13 @@ public class Controller {
     }
 
     public static void transferAll(Storage storageFrom, Storage storageTo) throws Exception {
-
+        for(int i=0;i<storageFrom.getFiles().length;i++){
+            try {
+                transferFile(storageFrom,storageTo,storageFrom.getFiles()[i].getId());
+            }catch (Exception e){
+                throw new Exception("Files can't be moved");
+            }
+        }
     }
 
     public static void transferFile(Storage storageFrom, Storage storageTo, long id) throws Exception {

@@ -50,6 +50,19 @@ public class Demo {
 //        for(int i=0;i<storage.getFiles().length;i++){
 //            System.out.println(storage.getFiles()[i]);
 //        }
+//        for(int i=0;i<storage.getFiles().length;i++){
+//            System.out.println(storage.getFiles()[i]);
+//        }
+//        System.out.println();   System.out.println();   System.out.println();
+//        for(int i=0;i<storage1.getFiles().length;i++){
+//            System.out.println(storage1.getFiles()[i]);
+//        }
+//        try {
+//            Controller.transferFile(storage1,storage,14);
+//         }catch (Exception e){
+//            System.out.println(e.getMessage());
+//        }
+        System.out.println();   System.out.println();   System.out.println();
         for(int i=0;i<storage.getFiles().length;i++){
             System.out.println(storage.getFiles()[i]);
         }
@@ -58,8 +71,8 @@ public class Demo {
             System.out.println(storage1.getFiles()[i]);
         }
         try {
-            Controller.transferFile(storage1,storage,14);
-         }catch (Exception e){
+            Controller.transferAll(storage,storage1);
+        }catch (Exception e){
             System.out.println(e.getMessage());
         }
         System.out.println();   System.out.println();   System.out.println();

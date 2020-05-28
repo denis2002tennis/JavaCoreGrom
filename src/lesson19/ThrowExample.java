@@ -9,6 +9,7 @@ public class ThrowExample {
                 throw new Exception("null is detected");
         }
         System.out.println("done");
+        System.out.println("done");
     }
     private static void useOfTestMethod(){
         try {

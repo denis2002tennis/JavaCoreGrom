@@ -103,7 +103,7 @@ public class Controller {
     public static boolean sameFileCheker(Storage storage, long id) {
         for (File file : storage.getFiles()) {
             if(file!=null)
-            if (file.equals(id))
+            if (file.getId() == id)
                 return false;
         }
         return true;

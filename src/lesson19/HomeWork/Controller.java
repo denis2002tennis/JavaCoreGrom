@@ -35,13 +35,25 @@ public class Controller {
     }
 
     public static void transferAll(Storage storageFrom, Storage storageTo) throws Exception {
-        for(int i=0;i<storageFrom.getFiles().length;i++){
+        if(storageFrom.equals(null))
+            throw new NullPointerException("Storage from is empty");
+        for (int i=0;i<storageFrom.getFiles().length;i++){
+            if (sameFileCheker(storageTo, storageFrom.getFiles()[i].getId()) == false)
+                throw new Exception("File with same id already defined in scope");
+        }
+
+       Storage storagerFromer=storageFrom;
+        Storage storagerTo=storageTo;
+        for(int i=0;i<storagerFromer.getFiles().length;i++){
+            if(storagerFromer.getFiles()[i]!=null)
             try {
-                transferFile(storageFrom,storageTo,storageFrom.getFiles()[i].getId());
+                transferFile(storagerFromer,storageTo,storagerFromer.getFiles()[i].getId());
             }catch (Exception e){
                 throw new Exception("Files can't be moved");
             }
         }
+        storageFrom.setFiles(storagerFromer.getFiles());
+        storageTo.setFiles(storagerTo.getFiles());
     }
 
     public static void transferFile(Storage storageFrom, Storage storageTo, long id) throws Exception {

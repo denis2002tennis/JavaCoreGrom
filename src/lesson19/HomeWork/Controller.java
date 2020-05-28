@@ -8,7 +8,7 @@ public class Controller {
         if (sizeCheker(storage, file.getSize()) == false)
             throw new Exception("not enough space in storage");
 
-        if (sameFileCheker(storage, file.getId()) == false)
+        if (sameFileCheker(storage, file) == false)
             throw new Exception("File with same id already defined in scope");
 
         if (emptyChecker(storage) == false)
@@ -22,7 +22,7 @@ public class Controller {
 
     public static void delete(Storage storage, File file) throws Exception {
         File[] files = storage.getFiles();
-        if (sameFileCheker(storage, file.getId()) == false) {
+        if (sameFileCheker(storage, file) == false) {
             for (int i = 0; i < storage.getFiles().length; i++) {
                 if(files[i]!=null)
                 if (files[i].getId() == file.getId())
@@ -38,7 +38,7 @@ public class Controller {
         if(storageFrom.equals(null))
             throw new NullPointerException("Storage from is empty");
         for (int i=0;i<storageFrom.getFiles().length;i++){
-            if (sameFileCheker(storageTo, storageFrom.getFiles()[i].getId()) == false)
+            if (sameFileCheker(storageTo, storageFrom.getFiles()[i]) == false)
                 throw new Exception("File with same id already defined in scope");
         }
 
@@ -60,7 +60,8 @@ public class Controller {
     if(storageFrom.equals(null))
         throw new NullPointerException("Storage from is empty");
 
-      if(sameFileCheker(storageFrom,id)==false){
+
+
           File file=null;
           for(int i=0;i<storageFrom.getFiles().length;i++){
               if(storageFrom.getFiles()[i]!=null)
@@ -69,14 +70,14 @@ public class Controller {
                   break;
               }
           }
-          try {
-              put(storageTo,file);
-              delete(storageFrom,file);
-          }catch (Exception e){
-              System.out.println(e.getMessage());
+          if(file!=null) {
+              try {
+                  put(storageTo, file);
+                  delete(storageFrom, file);
+              } catch (Exception e) {
+                  System.out.println(e.getMessage());
+              }
           }
-
-      }
       else
           throw new Exception("No file with id "+id+ " found in the scope");
 
@@ -100,10 +101,10 @@ public class Controller {
         return false;
     }
 
-    public static boolean sameFileCheker(Storage storage, long id) {
-        for (File file : storage.getFiles()) {
-            if(file!=null)
-            if (file.getId() == id)
+    public static boolean sameFileCheker(Storage storage, File file) {
+        for (File filer : storage.getFiles()) {
+            if(filer!=null)
+            if (filer.equals(file))
                 return false;
         }
         return true;

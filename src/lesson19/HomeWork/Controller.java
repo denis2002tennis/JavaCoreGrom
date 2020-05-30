@@ -2,15 +2,14 @@ package lesson19.HomeWork;
 
 public class Controller {
     public static void put(Storage storage, File file) throws Exception {
-        try {
+
             formatChecker(file.getFormat(), storage.getFormatsSupported());
             sizeCheker(storage, file.getSize());
             sameFileCheker(storage, file);
             emptyChecker(storage);
-        } catch (Exception e) {
-            throw e;
-        }
+
         storage.setFiles(addFile(storage.getFiles(), file));
+
     }
 
     public static void delete(Storage storage, File file) throws Exception {

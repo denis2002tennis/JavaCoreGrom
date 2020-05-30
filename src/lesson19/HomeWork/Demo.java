@@ -33,58 +33,44 @@ public class Demo {
         supportedFormats[1]="txt";
         Storage storage=new Storage(1,files,supportedFormats,"Ukraine",1000);
         Storage storage1=new Storage(2,files1,supportedFormats,"Ukraine",1000);
-//        try {
-//            Controller.put(storage,file6);
-//        }catch (Exception e){
-//            System.out.println(e.getMessage());
-//        }
-//        for(int i=0;i<storage.getFiles().length;i++){
-//            System.out.println(storage.getFiles()[i]);
-//        }
-//        System.out.println();   System.out.println();   System.out.println();
-//        try {
-//            Controller.delete(storage,file3);
-//        }catch (Exception e){
-//            System.out.println(e.getMessage());
-//        }
-//        for(int i=0;i<storage.getFiles().length;i++){
-//            System.out.println(storage.getFiles()[i]);
-//        }
-//        for(int i=0;i<storage.getFiles().length;i++){
-//            System.out.println(storage.getFiles()[i]);
-//        }
-//        System.out.println();   System.out.println();   System.out.println();
-//        for(int i=0;i<storage1.getFiles().length;i++){
-//            System.out.println(storage1.getFiles()[i]);
-//        }
-//        try {
-//            Controller.transferFile(storage1,storage,14);
-//         }catch (Exception e){
-//            System.out.println(e.getMessage());
-//        }
-        System.out.println();   System.out.println();   System.out.println();
-        for(int i=0;i<storage.getFiles().length;i++){
-            System.out.println(storage.getFiles()[i]);
+        try {
+            Controller.put(storage,file6);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
         }
-        System.out.println();   System.out.println();   System.out.println();
-        for(int i=0;i<storage1.getFiles().length;i++){
-            System.out.println(storage1.getFiles()[i]);
+       printer(storage);
+
+        try {
+            Controller.delete(storage,file3);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
         }
+
+      printer(storage);
+     printer(storage1);
+
+        try {
+            Controller.transferFile(storage1,storage,14);
+         }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+       printer(storage);
+       printer(storage1);
         try {
             Controller.transferAll(storage,storage1);
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
+       printer(storage);
+       printer(storage1);
+
+
+    }
+    private static void printer(Storage storage){
         System.out.println();   System.out.println();   System.out.println();
         for(int i=0;i<storage.getFiles().length;i++){
             System.out.println(storage.getFiles()[i]);
         }
-        System.out.println();   System.out.println();   System.out.println();
-        for(int i=0;i<storage1.getFiles().length;i++){
-            System.out.println(storage1.getFiles()[i]);
-        }
-
-
     }
 
 }

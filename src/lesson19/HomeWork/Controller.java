@@ -7,7 +7,7 @@ public class Controller {
             sizeCheker(storage, file.getSize());
             sameFileCheker(storage, file);
             emptyChecker(storage);
-       // storage.setFiles(addFile(storage.getFiles(), file));
+        storage.setFiles(addFile(storage.getFiles(), file));
 
     }
 
@@ -89,14 +89,14 @@ public class Controller {
             if (file == null)
                 return;
         }
-        throw new Exception("No empty space in array");
+        throw new Exception("No empty space in storage "+storage.getId());
     }
 
     public static void sameFileCheker(Storage storage, File file) throws Exception {
         for (File filer : storage.getFiles()) {
             if (filer != null)
                 if (filer.equals(file))
-                    throw new Exception("File with same id already defined in scope");
+                    throw new Exception("File with "+file.getId()+" id already defined in scope");
         }
     }
 
@@ -107,7 +107,7 @@ public class Controller {
                 result += file.getSize();
         }
         if (result > storage.getStorageSize())
-            throw new Exception("not enough space in storage");
+            throw new Exception("not enough space in storage "+storage.getId());
     }
 
     public static void formatChecker(String format, String[] acceptedFormats) throws Exception {
@@ -116,6 +116,6 @@ public class Controller {
                 return;
             }
         }
-        throw new Exception("this format is not supported");
+        throw new Exception("this format is not supported ");
     }
 }

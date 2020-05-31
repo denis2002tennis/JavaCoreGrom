@@ -3,7 +3,7 @@ package lesson19.HomeWork;
 public class Controller {
     public static void put(Storage storage, File file) throws Exception {
 
-            formatChecker(file.getFormat(), storage.getFormatsSupported());
+            formatChecker(storage, file.getFormat());
             sizeCheker(storage, file.getSize());
             sameFileCheker(storage, file);
             emptyChecker(storage);
@@ -110,12 +110,13 @@ public class Controller {
             throw new Exception("not enough space in storage "+storage.getId());
     }
 
-    public static void formatChecker(String format, String[] acceptedFormats) throws Exception {
+    public static void formatChecker( Storage storage, String format) throws Exception {
+        String[] acceptedFormats =storage.getFormatsSupported();
         for (String string : acceptedFormats) {
             if (format.equals(string)) {
                 return;
             }
         }
-        throw new Exception("this format is not supported ");
+        throw new Exception("this format is not supported "+storage.getId());
     }
 }

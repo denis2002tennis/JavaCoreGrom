@@ -7,8 +7,7 @@ public class Controller {
             sizeCheker(storage, file.getSize());
             sameFileCheker(storage, file);
             emptyChecker(storage);
-
-        storage.setFiles(addFile(storage.getFiles(), file));
+       // storage.setFiles(addFile(storage.getFiles(), file));
 
     }
 

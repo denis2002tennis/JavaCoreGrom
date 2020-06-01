@@ -1,4 +1,4 @@
-package lesson9.homework;
+package lesson20.task1;
 
 public class User {
     private long id;

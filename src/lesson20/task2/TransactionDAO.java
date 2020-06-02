@@ -22,11 +22,14 @@ public class TransactionDAO {
        throw new BadRequestException("Unknown error");
     }
 
-    private void validate(Transaction transaction)throws Exception{
+    private void validate(Transaction transaction)throws BadRequestException,InternalServerException{
+
         limitsChecker(transaction);
         cityChecker(transaction);
         emptyChecker(transaction);
         sameTransactionChecker(transaction);
+
+        //throw new BadRequestException("Transaction "+transaction.getId()+" is empty.");
     }
 
     private void limitsChecker(Transaction transaction) throws LimitExceeded{
@@ -63,6 +66,7 @@ public class TransactionDAO {
 
     private void sameTransactionChecker(Transaction transaction) throws BadRequestException{
         for(int i=0;i<transactions.length;i++){
+            if(transactions[i]!=null)
             if(transactions[i].equals(transaction)){
                 throw new BadRequestException("Transaction "+transaction.getId()+" is already present in the scope. Can't be saved");
             }
@@ -94,8 +98,8 @@ public class TransactionDAO {
 
         int count=0;
         for(Transaction transaction:transactions){
-            if(transactions!=null&&transactions!=null){
-                calendar.setTime(transaction.getDateCreated());
+            if(transaction!=null){
+                calendar.setTime(dateOfCurTransaction);
                 int trMonth=calendar.get(Calendar.MONTH);
                 int trDay=calendar.get(Calendar.DAY_OF_MONTH);
 
@@ -108,8 +112,8 @@ public class TransactionDAO {
         Transaction[] result=new Transaction[count];
         int index=0;
         for(Transaction transaction:transactions){
-            if(transactions!=null){
-                calendar.setTime(transaction.getDateCreated());
+            if(transaction!=null){
+                calendar.setTime(dateOfCurTransaction);
                 int trMonth=calendar.get(Calendar.MONTH);
                 int trDay=calendar.get(Calendar.DAY_OF_MONTH);
 

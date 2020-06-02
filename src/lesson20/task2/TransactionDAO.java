@@ -23,13 +23,10 @@ public class TransactionDAO {
     }
 
     private void validate(Transaction transaction)throws BadRequestException,InternalServerException{
-
         limitsChecker(transaction);
         cityChecker(transaction);
         emptyChecker(transaction);
         sameTransactionChecker(transaction);
-
-        //throw new BadRequestException("Transaction "+transaction.getId()+" is empty.");
     }
 
     private void limitsChecker(Transaction transaction) throws LimitExceeded{

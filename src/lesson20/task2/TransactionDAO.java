@@ -33,7 +33,7 @@ public class TransactionDAO {
         if(transaction.getAmount()>utils.getLimitSimpleTransactionAmount())
             throw new LimitExceeded("Transaction limit exceeded"+transaction.getId()+". Can't be saved");
 
-        int sum=0,count=0;
+        int sum=transaction.getAmount(),count=1;
         for(Transaction trans:getTransactionsPerDay(transaction.getDateCreated())){
             sum+=trans.getAmount();
             count++;
@@ -45,13 +45,10 @@ public class TransactionDAO {
             throw new LimitExceeded("Transaction limit per day count exceeded"+transaction.getId()+". Can't be saved");
     }
     private void cityChecker(Transaction transaction) throws BadRequestException{
-
-        boolean checker=false;
         for(String string:utils.getCities()){
             if(string.equals(transaction.getCity()))
-                checker=true;
+                return;
         }
-        if(checker==false)
             throw new BadRequestException("Transaction city "+transaction.getCity()+" is not correct "+transaction.getId()+". Can't be saved");
     }
 

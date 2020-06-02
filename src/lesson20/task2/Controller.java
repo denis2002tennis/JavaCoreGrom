@@ -6,13 +6,13 @@ public class Controller {
     public Transaction save(Transaction transaction) throws Exception{
         return transactionDAO.save(transaction);
     }
-    public Transaction[] transactionList(){
+    public String transactionList(){
         return transactionDAO.transactionList();
     }
-    public Transaction[] transactionList(String city){
+    public String transactionList(String city){
         return transactionDAO.transactionList(city);
     }
-    public Transaction[] transactionList(int amount){
+    public String transactionList(int amount){
         return transactionDAO.transactionList(amount);
     }
 

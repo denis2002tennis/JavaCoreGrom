@@ -71,18 +71,20 @@ public class TransactionDAO {
 
     }
 
-    public Transaction[] transactionList(){
-        return transactions;
+    public String transactionList(){
+        //return transactions;
+        return null;
     }
-    public Transaction[] transactionList(String city){
+    public String transactionList(String city){
         Transaction[] transactions1=new Transaction[transactions.length];
         for(int i=0;i<transactions.length;i++){
             if(transactions[i].getCity().equals(city))
             transactions1[i]=transactions[i];
         }
-        return transactions1;
+        //return transactions1;
+        return null;
     }
-    public Transaction[] transactionList(int amount){
+    public String transactionList(int amount){
         return null;
     }
 

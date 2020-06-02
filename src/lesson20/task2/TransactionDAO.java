@@ -13,11 +13,23 @@ public class TransactionDAO {
 
     public Transaction save(Transaction transaction) throws Exception{
          validate(transaction);
-
-        return transaction;
+         for(int i=0;i<transactions.length;i++){
+             if(transactions[i]==null){
+                 transactions[i]=transaction;
+                 return transactions[i];
+             }
+         }
+       throw new BadRequestException("Unknown error");
     }
 
     private void validate(Transaction transaction)throws Exception{
+        limitsChecker(transaction);
+        cityChecker(transaction);
+        emptyChecker(transaction);
+        sameTransactionChecker(transaction);
+    }
+
+    private void limitsChecker(Transaction transaction) throws LimitExceeded{
         if(transaction.getAmount()>utils.getLimitSimpleTransactionAmount())
             throw new LimitExceeded("Transaction limit exceeded"+transaction.getId()+". Can't be saved");
 
@@ -31,6 +43,8 @@ public class TransactionDAO {
 
         if(count>utils.getLimitTransactionsPerDayCount())
             throw new LimitExceeded("Transaction limit per day count exceeded"+transaction.getId()+". Can't be saved");
+    }
+    private void cityChecker(Transaction transaction) throws BadRequestException{
 
         boolean checker=false;
         for(String string:utils.getCities()){
@@ -38,27 +52,37 @@ public class TransactionDAO {
                 checker=true;
         }
         if(checker==false)
-            throw new BadRequestException("Transaction city is not correct "+transaction.getId()+". Can't be saved");
+            throw new BadRequestException("Transaction city "+transaction.getCity()+" is not correct "+transaction.getId()+". Can't be saved");
+    }
 
-        checker=false;
-        //TODO не хватило места InternalServerException
+    private void emptyChecker(Transaction transaction) throws InternalServerException{
         for(int i=0;i<transactions.length;i++){
             if(transactions[i]==null){
-                transactions[i]=transaction;
-                checker=true;
-              //  return i;
+               return;
             }
         }
-        if(checker==false)
             throw new InternalServerException("Not enough space in "+transaction.getId()+". Can't be saved");
+    }
 
+    private void sameTransactionChecker(Transaction transaction) throws BadRequestException{
+        for(int i=0;i<transactions.length;i++){
+            if(transactions[i].equals(transaction)){
+                throw new BadRequestException("Transaction "+transaction.getId()+" is already present in the scope. Can't be saved");
+            }
+        }
 
     }
+
     public Transaction[] transactionList(){
-        return null;
+        return transactions;
     }
     public Transaction[] transactionList(String city){
-        return null;
+        Transaction[] transactions1=new Transaction[transactions.length];
+        for(int i=0;i<transactions.length;i++){
+            if(transactions[i].getCity().equals(city))
+            transactions1[i]=transactions[i];
+        }
+        return transactions1;
     }
     public Transaction[] transactionList(int amount){
         return null;

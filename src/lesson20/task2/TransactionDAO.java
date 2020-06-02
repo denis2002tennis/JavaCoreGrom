@@ -12,7 +12,7 @@ public class TransactionDAO {
     private Utils utils=new Utils();
 
     public Transaction save(Transaction transaction) throws Exception{
-  validate(transaction);
+         validate(transaction);
 
         return transaction;
     }
@@ -45,7 +45,7 @@ public class TransactionDAO {
         for(int i=0;i<transactions.length;i++){
             if(transactions[i]==null){
                 transactions[i]=transaction;
-                checker =true;
+                checker=true;
               //  return i;
             }
         }

@@ -94,7 +94,7 @@ public class TransactionDAO {
 
         int count=0;
         for(Transaction transaction:transactions){
-            if(transactions!=null){
+            if(transactions!=null&&transactions!=null){
                 calendar.setTime(transaction.getDateCreated());
                 int trMonth=calendar.get(Calendar.MONTH);
                 int trDay=calendar.get(Calendar.DAY_OF_MONTH);
